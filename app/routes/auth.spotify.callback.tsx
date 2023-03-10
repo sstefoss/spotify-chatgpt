@@ -1,12 +1,12 @@
 // app/routes/auth/spotify.callback.tsx
-import type { LoaderArgs } from '@remix-run/node';
+import type { LoaderArgs } from "@remix-run/node";
 
-import { authenticator } from '~/services/auth.server';
+import { authenticator } from "~/services/auth.server";
 
 export function loader({ request }: LoaderArgs) {
-  return authenticator.authenticate('spotify', request, {
-    successRedirect: '/',
-    failureRedirect: '/login',
+  return authenticator.authenticate("spotify", request, {
+    successRedirect: "/",
+    failureRedirect: "/login",
   });
 }
 
