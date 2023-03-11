@@ -17,7 +17,13 @@ export async function action({ request }: ActionArgs) {
   const accessToken = session.data["spotify:session"].accessToken;
   spotifyApi.setAccessToken(accessToken);
 
-  const topTracks = await spotifyApi.getMyTopTracks();
+  // set random offset from 0 to 50
+  const offset = Math.floor(Math.random() * 50);
+
+  const topTracks = await spotifyApi.getMyTopTracks({
+    offset,
+    limit: 40,
+  });
   const songs = topTracks.body.items;
   const topSongs = songs
     .map(
