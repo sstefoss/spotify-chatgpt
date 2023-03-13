@@ -4,3 +4,14 @@ node_modules
 /build
 /public/build
 .env
+
+# ignore generated files
+/app/styles/app.css
+/app/styles/tailwind.css
+/app/api
+
+# ignore vscode settings
+/.vscode
+
+# macos cache file
+.DS_Store
