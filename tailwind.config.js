@@ -61,6 +61,13 @@ module.exports = {
               margin: "0",
               fontSize: "1.125rem",
             },
+            a: {
+              textDecoration: "none",
+              color: "rgba(255, 255, 255, 0.8)",
+              "&:hover": {
+                color: "rgba(255, 255, 255, 1)",
+              },
+            },
           },
         },
       },
