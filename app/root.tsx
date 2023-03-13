@@ -23,7 +23,7 @@ export const links: LinksFunction = () => [
 
 export default function App() {
   return (
-    <html lang="en">
+    <html lang="en" className="prose dark:prose-invert">
       <head>
         <Meta />
         <Links />
