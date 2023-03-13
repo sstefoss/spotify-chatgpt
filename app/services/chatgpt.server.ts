@@ -1,6 +1,8 @@
 import { Configuration, OpenAIApi } from "openai";
+import { PrismaClient } from "@prisma/client";
 import type { Recommendation } from "~/types";
 import { getTopSongs } from "./spotify.server";
+const prisma = new PrismaClient();
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -35,12 +37,35 @@ export const getRecommendation = async (
     completion.data.choices[0].text?.replace(/(\r\n|\n|\r)/gm, "") as string
   );
 
-  return {
-    song: {
+  const song = await prisma.song.create({
+    data: {
       title: message.song,
       album: message.album,
       artist: message.artist,
     },
-    reason: message.reason,
+  });
+
+  const recommendation = await prisma.recommendation.create({
+    data: {
+      reason: message.reason,
+      song: {
+        connect: {
+          id: song.id,
+        },
+      },
+    },
+  });
+
+  return {
+    id: recommendation.id,
+    reason: recommendation.reason,
+    song: {
+      id: song.id,
+      title: song.title,
+      album: song.album,
+      artist: song.artist,
+    },
+    liked: false,
+    disliked: false,
   };
 };
