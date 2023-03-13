@@ -59,7 +59,8 @@ module.exports = {
             },
             h3: {
               margin: "0",
-            }
+              fontSize: "1.125rem",
+            },
           },
         },
       },
