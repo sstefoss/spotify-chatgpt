@@ -9,7 +9,7 @@ type RecommendationProps = {
 export const SongRecommendation = ({ data }: RecommendationProps) => {
   const { song, reason } = data;
   return (
-    <div className="bg-gray-900 rounded-lg max-w-[720px] h-fit p-8">
+    <div className="bg-gray-700 rounded-lg max-w-[720px] h-fit p-8">
       <div className="flex justify-between">
         <div>
           <h2 className="mb-1.5">{song.title}</h2>
