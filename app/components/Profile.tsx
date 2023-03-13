@@ -6,11 +6,11 @@ export const Profile = () => {
   return (
     <div className="relative not-prose">
       <div
-        className="flex items-center rounded-full bg-black pr-2 pl-0.5 cursor-pointer"
+        className="flex items-center rounded-full bg-black pr-2 pl-0.5 cursor-pointer hover:bg-gray-800"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <div className="rounded-full bg-gray-700 p-1 mr-2">
-          <User size={16} />
+        <div className="rounded-full bg-gray-700 p-1.5 mr-2">
+          <User size={20} />
         </div>
         <span>stef.orovas</span>
         {!isOpen && <ChevronDown size={16} className="ml-2" />}
