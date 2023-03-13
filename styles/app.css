@@ -13,10 +13,10 @@
 
   .btn-primary {
     @apply text-white;
-    background-color: theme('colors.primary');
+    background-color: theme('colors.green-500');
   }
 
   .btn-primary:hover {
-    background-color: theme('colors.primary-focus');
+    background-color: theme('colors.green-700');
   }
 }
