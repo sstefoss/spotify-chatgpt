@@ -1,7 +1,7 @@
-// component for uaunthorized users
+// Authorize page
 import { Form } from "@remix-run/react";
 
-export const Unauthorized = () => {
+export default function Authorize() {
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       <h1>spotify-chatgpt</h1>
@@ -13,4 +13,4 @@ export const Unauthorized = () => {
       </Form>
     </div>
   );
-};
+}
