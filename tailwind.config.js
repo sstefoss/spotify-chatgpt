@@ -10,6 +10,24 @@ module.exports = {
     fontFamily: {
       sans: ["Helvetica", "sans-serif"],
     },
+    extend: {
+      typography: {
+        DEFAULT: {
+          css: {
+            h1: {
+              fontSize: "3rem",
+              margin: "0",
+            },
+            h2: {
+              margin: "0",
+            },
+            h3: {
+              margin: "0",
+            }
+          },
+        },
+      },
+    },
   },
   base: true,
   utils: true,
