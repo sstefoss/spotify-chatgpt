@@ -11,5 +11,9 @@ module.exports = {
       sans: ["Helvetica", "sans-serif"],
     },
   },
-  plugins: [],
+  base: true,
+  utils: true,
+  logs: false,
+  rtl: false,
+  prefix: "",
 };
