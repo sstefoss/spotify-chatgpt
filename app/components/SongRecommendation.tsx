@@ -34,10 +34,14 @@ export const SongRecommendation = ({ data }: RecommendationProps) => {
             className="text-green-500/60 hover:text-green-500/100"
           />
         </div>
-        <div className="flex items-center cursor-pointer text-white/60 hover:text-white/100">
+        <div
+          className="flex items-center cursor-pointer text-white/60 hover:text-white/100"
+          onClick={() => {
+            window.location.href = `https://open.spotify.com/search/artist:${song.artist}%20track:${song.title}`;
+          }}
+        >
           <Search size={16} />
           <span className="ml-1.5">Find on Spotify</span>
-          {/* {https://open.spotify.com/search/artist:{ARTIST}%20track:{TRACK}} */}
         </div>
       </div>
     </div>
