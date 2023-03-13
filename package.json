@@ -19,6 +19,7 @@
     "openai": "^3.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-feather": "^2.0.10",
     "remix-auth": "^3.4.0",
     "remix-auth-spotify": "^1.2.9",
     "spotify-web-api-node": "^5.0.2",
