@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Form } from "@remix-run/react";
 import { User, ChevronDown, ChevronUp } from "react-feather";
 
 export const Profile = () => {
@@ -20,7 +21,11 @@ export const Profile = () => {
         <div className="absolute top-10 right-0 bg-gray-700 w-[200px] p-1.5 rounded-lg">
           <ul>
             <li className="cursor-pointer hover:bg-gray-600 px-4 py-1 rounded-lg">
-              Logout
+              <Form action="/logout" method="post">
+                <button name="action" value="logout">
+                  Logout
+                </button>
+              </Form>
             </li>
           </ul>
         </div>
