@@ -1,21 +1,31 @@
 // app/routes/index.tsx
-import type { LoaderArgs } from "@remix-run/node";
+import { type LoaderArgs, redirect, json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 
 import { spotifyStrategy } from "~/services/auth.server";
-import { Unauthorized } from "~/components/Unauthorized";
-import { Recommendation } from "~/components/Recommendation";
+import { getRecommendation } from "~/services/chatgpt.server";
+import type { Recommendation } from "~/types";
+
+import { SongRecommendation } from "~/components/SongRecommendation";
+
+export type LoaderData = { recommendation: Recommendation };
 
 export async function loader({ request }: LoaderArgs) {
-  return spotifyStrategy.getSession(request);
+  const session = await spotifyStrategy.getSession(request);
+
+  if (!session?.user) {
+    return redirect("/authorize");
+  }
+  // return chatgpt recomendation
+  const recommendation = await getRecommendation(request);
+  return json<LoaderData>({ recommendation });
 }
 
 export default function Index() {
   const data = useLoaderData<typeof loader>();
-  const user = data?.user;
-  if (user) {
-    return <Recommendation />;
-  }
-
-  return <Unauthorized />;
+  return (
+    <div className="flex flex-col items-center justify-center h-screen">
+      <SongRecommendation data={data.recommendation} />
+    </div>
+  );
 }
