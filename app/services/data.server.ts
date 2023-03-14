@@ -32,5 +32,8 @@ export async function getAllRecommendations() {
     include: {
       song: true,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
   });
 }
