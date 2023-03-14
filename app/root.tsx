@@ -1,4 +1,9 @@
-import type { MetaFunction, LinksFunction } from "@remix-run/node";
+import {
+  type MetaFunction,
+  type LinksFunction,
+  type LoaderArgs,
+  json,
+} from "@remix-run/node";
 import {
   Links,
   LiveReload,
@@ -6,7 +11,10 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
 } from "@remix-run/react";
+import { spotifyStrategy } from "~/services/auth.server";
+import { Navbar } from "~/components/Navbar";
 import styles from "./styles/app.css";
 
 export const meta: MetaFunction = () => ({
@@ -21,7 +29,17 @@ export const links: LinksFunction = () => [
   { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
 ];
 
+export async function loader({ request }: LoaderArgs) {
+  const session = await spotifyStrategy.getSession(request);
+
+  if (!session?.user) {
+    return json({ isLoggedIn: false });
+  }
+  return json({ isLoggedIn: true });
+}
+
 export default function App() {
+  const data = useLoaderData<typeof loader>();
   return (
     <html lang="en" className="prose dark:prose-invert">
       <head>
@@ -29,6 +47,7 @@ export default function App() {
         <Links />
       </head>
       <body className="dark:bg-gray-900 bg-slate w-screen h-screen">
+        {data.isLoggedIn && <Navbar />}
         <Outlet />
         <ScrollRestoration />
         <Scripts />

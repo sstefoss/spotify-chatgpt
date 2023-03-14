@@ -7,7 +7,6 @@ import { getRecommendation } from "~/services/chatgpt.server";
 import type { Recommendation } from "~/types";
 
 import { SongRecommendation } from "~/components/SongRecommendation";
-import { Navbar } from "~/components/Navbar";
 
 export type LoaderData = { recommendation: Recommendation };
 
@@ -17,7 +16,6 @@ export async function loader({ request }: LoaderArgs) {
   if (!session?.user) {
     return redirect("/authorize");
   }
-  // return chatgpt recomendation
   const recommendation = await getRecommendation(request);
   return json<LoaderData>({ recommendation });
 }
@@ -26,7 +24,6 @@ export default function Index() {
   const data = useLoaderData<typeof loader>();
   return (
     <>
-      <Navbar />
       <div className="flex flex-col items-center justify-center h-screen">
         <SongRecommendation
           data={data.recommendation}
