@@ -7,6 +7,5 @@ export async function action({ request }: ActionArgs) {
   const id = parseInt(formData.get("id") as string);
 
   const result = await like(id);
-  // return your
   return json(result, { status: 201 });
 }
