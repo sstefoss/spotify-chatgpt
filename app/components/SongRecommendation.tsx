@@ -1,37 +1,56 @@
-import { Form } from "@remix-run/react";
+import { useFetcher } from "@remix-run/react";
 import { ThumbsUp, ThumbsDown, Search } from "react-feather";
+import cn from "classnames";
 
 import type { Recommendation } from "~/types";
 
 type RecommendationProps = {
   data: Recommendation;
+  className?: string;
 };
 
-export const SongRecommendation = ({ data }: RecommendationProps) => {
-  const { song, reason, id } = data;
+export const SongRecommendation = ({
+  data,
+  className,
+}: RecommendationProps) => {
+  const { song, reason, id, liked, disliked } = data;
+  const fetcher = useFetcher();
   return (
-    <div className="bg-gray-700 rounded-lg max-w-[720px] h-fit p-8">
+    <div className={cn("bg-gray-700 rounded-lg h-fit p-8 w-full", className)}>
       <div className="flex justify-between">
         <div>
           <h2 className="mb-1.5">{song.title}</h2>
           <h3 className="mb-8 text-white/60">{song.artist}</h3>
         </div>
         <div className="flex">
-          <Form method="post">
+          <fetcher.Form method="post" action="/action/like">
             <input type="hidden" name="id" value={id} />
-            <button name="action" value="like">
+            <button>
               <ThumbsUp
                 size={32}
-                className="mr-10 cursor-pointer text-green-500/60 hover:text-green-500/100"
+                className={cn(
+                  "mr-10 cursor-pointer text-green-500/40 hover:text-green-500/100",
+                  {
+                    "!text-green-500/100": liked,
+                  }
+                )}
               />
             </button>
-            <button name="action" value="dislike">
+          </fetcher.Form>
+          <fetcher.Form method="post" action="/action/dislike">
+            <input type="hidden" name="id" value={id} />
+            <button>
               <ThumbsDown
                 size={32}
-                className="cursor-pointer text-red-500/60 hover:text-red-500/100"
+                className={cn(
+                  "cursor-pointer text-red-500/40 hover:text-red-500/100",
+                  {
+                    "!text-red-500/100": disliked,
+                  }
+                )}
               />
             </button>
-          </Form>
+          </fetcher.Form>
         </div>
       </div>
       <p className="mb-5">{reason}</p>
